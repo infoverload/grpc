@@ -6,12 +6,10 @@ import (
 	"errors"
 	"html/template"
 	"log"
-	"net"
 	"strings"
 
 	"github.com/golang/protobuf/ptypes"
 	pb "github.com/wwgberlin/grpc/salute"
-	"google.golang.org/grpc"
 )
 
 var path = "server/salute.tmpl"
@@ -22,13 +20,6 @@ type server struct{}
 //See example at: https://github.com/grpc/grpc-go/blob/master/examples/helloworld/greeter_server/main.go
 func Serve(addr string) error {
 	//implement here!
-	lis, err := net.Listen("tcp", addr)
-	if err != nil {
-		return err
-	}
-	s := grpc.NewServer()
-	pb.RegisterSaluterServer(s, &server{})
-	return s.Serve(lis)
 }
 
 func main() {
@@ -36,7 +27,7 @@ func main() {
 }
 
 func (s *server) Salute(ctx context.Context, in *pb.SaluteRequest) (*pb.SaluteResponse, error) {
-	if in.ResponseType != pb.ResponseType_html {
+	if in.ResponseType != pb.ResponseType_HTML {
 		return nil, errors.New("unsupported response format")
 	}
 	var b bytes.Buffer

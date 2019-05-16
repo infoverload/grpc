@@ -1,46 +1,34 @@
 syntax = "proto3";
 
 // Define that the generated files will have the package salute
-package salute;
 
-import "google/protobuf/timestamp.proto";
 
-// Define the service Saluter, it has one RPC called Salute that takes one argument of type SaluteRequest
-// and returns a SaluteResponse.
-service Saluter {
-  rpc Salute (SaluteRequest) returns (SaluteResponse) {}
-}
 
-//define enumerator response type to support both html and text response types
-enum ResponseType {
-    html = 0;
-    text = 1;
-}
-
-// Define the SaluteRequest to contain the following fields in this order:
+// Define a SaluteRequest message to contain the following fields (in order):
 // response_type
 // saluters (0 strings or more)
 // salutee (string)
-// video url (string)
-// logo url (string)
+// video_url (string)
+// logo_url (string)
 // description (string)
 // url (string)
-// timestamp (research how to define a timestamp with proto 3)
-message SaluteRequest {
-  ResponseType response_type  = 1;
-  repeated string saluters = 2;
-  string salutee = 3;
-  string video_url = 4;
-  string logo_url = 5;
-  string description = 6;
-  string url = 7;
-  google.protobuf.Timestamp timestamp = 8;
-}
+// timestamp (research how to define a timestamp with proto 3, hint: requires an import)
 
-// define the SaluteResponse to return the following fields by order:
+
+
+
+
+// define the SaluteResponse message to return the following fields by order:
 // response_type of the enumerator type you have defined
+// body (string)
 
-message SaluteResponse {
-  ResponseType response_type = 1;
-  string body = 2;
-}
+
+
+
+// Define the service Saluter, it has one RPC called Salute that takes one argument of type SaluteRequest
+// and returns a SaluteResponse.
+
+
+
+
+//define enumerator ResponseType to support both html and text response types HTML and TEXT (in order)
