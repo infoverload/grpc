@@ -6,7 +6,10 @@ import (
 	"errors"
 	"html/template"
 	"log"
+	"net"
 	"strings"
+
+	"google.golang.org/grpc"
 
 	"github.com/golang/protobuf/ptypes"
 	pb "github.com/wwgberlin/grpc/salute"
@@ -19,7 +22,15 @@ type server struct{}
 //Serve starts a grpc server and registers itself as a SaluterServer
 //See example at: https://github.com/grpc/grpc-go/blob/master/examples/helloworld/greeter_server/main.go
 func Serve(addr string) error {
-	//implement here!
+	lis, err := net.Listen("tcp", addr)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterSaluterServer(s, &server{})
+
+	err = s.Serve(lis)
+	return err
 }
 
 func main() {

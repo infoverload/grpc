@@ -32,7 +32,7 @@ func TestSend_Success(t *testing.T) {
 		Description: "You know why",
 		Timestamp:   &timestamp.Timestamp{Seconds: 1},
 	}
-	resp := pb.SaluteResponse{Body: "hello world", ResponseType: pb.ResponseType_text}
+	resp := pb.SaluteResponse{Body: "hello world", ResponseType: pb.ResponseType_TEXT}
 
 	lis, err := net.Listen("tcp", address)
 	require.NoError(t, err)
